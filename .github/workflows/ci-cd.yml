@@ -34,6 +34,9 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
 
+    outputs:
+      image_tag: ${{ steps.version.outputs.tag }}
+
     steps:
       - name: Récupérer le code
         uses: actions/checkout@v4
@@ -73,7 +76,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Récupérer l'image publiée
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/tp-cicd:${{ steps.version.outputs.tag }}
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/tp-cicd:${{ needs.docker.outputs.image_tag }}
 
       - name: Vérifier que l'image est prête
         run: echo "Image récupérée avec succès, prête pour le déploiement."
