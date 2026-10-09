@@ -2,5 +2,6 @@
 venv/
 
 *.py[cod]
+.pytest_cache/
 
 .env
